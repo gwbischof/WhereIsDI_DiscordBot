@@ -23,7 +23,7 @@ def get_location(server=4):
     try:
         response = requests.get(endpoint)
         location = response.json()['data'][0]['location']['en_us']
-    except Exception
+    except Exception:
         location = "Failed to get DI location"
     return location
 
