@@ -13,6 +13,20 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
+def get_data(server=4):
+    """
+    Get the DI location from the whereisdi api.
+    Server 4 is Bahamut.
+    """
+
+    endpoint = f"https://api.whereisdi.com/items/di_location?fields=*.*&sort=-date_created&limit=1&filter[server][_eq]={server}"
+    try:
+        response = requests.get(endpoint)
+        location = response.json()['data'][0]['location']['en_us']
+    except Exception
+        location = "Failed to get DI location"
+    return location
+
 @client.event
 async def on_ready():
     print("{0.user} is now online!".format(client))
@@ -36,7 +50,7 @@ async def on_message(message):
 
         filepath = Path("E:\\WhereIsDI\\whereisdi\\DI.txt")
         filepath.stat().st_size == 0 # If 0 file is empty
-        
+
         if filepath.stat().st_size == 0:
             await message.channel.send(f'{mention} Please stand by. Fetching Data!')
             time.sleep(3)
@@ -46,7 +60,7 @@ async def on_message(message):
         else:
             f = open("E:\\WhereIsDI\\whereisdi\\DI.txt", "r")
             await message.channel.send(f'{mention} **DI is currently at:** \n' + f.readline())
-        
+
 client.run(DISCORD_TOKEN)
 
 
