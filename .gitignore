@@ -1,2 +1,4 @@
 dev/
 .env
+run.bat
+run_script.vbs
