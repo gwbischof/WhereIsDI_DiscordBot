@@ -13,7 +13,7 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-def get_data(server=4):
+def get_location(server=4):
     """
     Get the DI location from the whereisdi api.
     Server 4 is Bahamut.
@@ -47,19 +47,7 @@ async def on_message(message):
         await channel.send(f'{mention}, Please use **!where** to display current Domain Invasion location!')
 
     if message.content.startswith('!where'):
-
-        filepath = Path("E:\\WhereIsDI\\whereisdi\\DI.txt")
-        filepath.stat().st_size == 0 # If 0 file is empty
-
-        if filepath.stat().st_size == 0:
-            await message.channel.send(f'{mention} Please stand by. Fetching Data!')
-            time.sleep(3)
-            f = open("E:\\WhereIsDI\\whereisdi\\DI.txt", "r")
-            await message.channel.send(f'{mention} **DI is currently at:** \n' + f.readline())
-
-        else:
-            f = open("E:\\WhereIsDI\\whereisdi\\DI.txt", "r")
-            await message.channel.send(f'{mention} **DI is currently at:** \n' + f.readline())
+        await message.channel.send(f'{mention} **DI is currently at:** \n {get_location()}')
 
 client.run(DISCORD_TOKEN)
 
