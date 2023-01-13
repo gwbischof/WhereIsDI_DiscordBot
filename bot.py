@@ -20,9 +20,9 @@ def get_location(server=4):
     Server 4 is Bahamut.
     """
 
-    endpoint = f"https://api.whereisdi.com/items/di_location?fields=*.*&sort=-date_created&limit=1&filter[server][_eq]={server}"
+    query = f"https://api.whereisdi.com/items/di_location?fields=*.*&sort=-date_created&limit=1&filter[server][_eq]={server}"
     try:
-        response = requests.get(endpoint)
+        response = requests.get(query)
         location = response.json()['data'][0]['location']['en_us']
     except Exception:
         location = "Failed to get DI location"
