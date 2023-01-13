@@ -1,9 +1,10 @@
+import discord
 import os
+import requests
+import time
+from discord.ext import commands
 from dotenv import load_dotenv
 from pathlib import Path
-import time
-import discord
-from discord.ext import commands
 
 load_dotenv()
 
